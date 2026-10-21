@@ -1,12 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SharedTravel.Pages.AddTripPage">
+             xmlns:viewModels="clr-namespace:SharedTravel.ViewModels"
+             x:Class="SharedTravel.Pages.AddTripPage"
+             x:DataType="viewModels:AddTripViewModel">
     <ContentPage.Content>
-        <Label
-            Text="Новая поездка"
-            FontSize="{StaticResource HeaderSize}"
-            />
+        <ScrollView>
+            <VerticalStackLayout Padding="16" Spacing="12">
+                <Label Text="Название поездки"/>
+                <Entry Text="{Binding TripTitle}" Placeholder="Введите название поездки"/>
+                
+                <Label Text="Дата поездки с/по"/>
+                <DatePicker Date="{Binding TripStartDate}" />
+                <DatePicker Date="{Binding TripEndDate}" />
+                
+                <Label Text="Плановая сумма бюджета"/>
+                <Entry Text="{Binding TripPlannedBudget}" Placeholder="Какую сумму хотите взять для поездки?" Keyboard="Numeric"/>
+                <Button
+                    Text="Сохранить"
+                    Command="{Binding SaveNewTripToDbCommand}"
+                    />
+            </VerticalStackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
