@@ -1,4 +1,7 @@
-﻿namespace SharedTravel.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using SharedTravel.Models.Helpers;
+
+namespace SharedTravel.Models;
 
 public class Trip
 {
@@ -7,7 +10,11 @@ public class Trip
     public string Name { get; set; } = "";
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-    public CountryCode Country { get; set; } = CountryCode.US;
+    public CountryCode CountryCode { get; set; } = CountryCode.US;
+
+    // Только для показа на экране: название страны считается из CountryCode, в базе не хранится.
+    [NotMapped]
+    public string CountryName => CountryCode.GetDescription();
     public CurrencyCode CurrencyCode { get; set; } = CurrencyCode.USD;
     public decimal PlannedBudget { get; set; }
 

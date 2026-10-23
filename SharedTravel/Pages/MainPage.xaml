@@ -38,7 +38,13 @@
                             Text="{Binding EndDate, StringFormat='Конец: {0:dd.MM.yyyy}'}"
                         />
                         <Label
-                            Text="{Binding Country, StringFormat='Страна: {0}'}"
+                            Text="{Binding CountryName, StringFormat='Страна: {0}'}"
+                        />
+                        <Label
+                            Text="{Binding CurrencyCode, StringFormat='Валюта: {0}'}"
+                        />
+                        <Label
+                            Text="{Binding PlannedBudget, StringFormat='Плановый бюджет: {0}'}"
                         />
                     </VerticalStackLayout>
                 </DataTemplate>

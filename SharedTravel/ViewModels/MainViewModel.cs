@@ -8,22 +8,18 @@ namespace SharedTravel.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
-    public ObservableCollection<Trip> Trips { get; set; }
-
-    //  CONSTRUCTOR
-    public MainViewModel()
-    {
-        Trips = new ObservableCollection<Trip>();
-    }
+    // Из этого поля генератор создаёт публичное свойство Trips (с большой буквы, без подчёркивания).
+    // Именно свойство Trips используется в XAML и в коде ниже.
+    [ObservableProperty]
+    private ObservableCollection<Trip> _trips = new();
 
     public void LoadTripsFromDb()
     {
         using var db = new AppDbContext();
-        db.Database.EnsureCreated(); // 1. создать файл и таблицы, если их нет
-        
-        Trips.Clear();
-        foreach (var trip in db.Trips.ToList())
-            Trips.Add(trip);
+        db.Database.EnsureCreated(); // создать файл и таблицы, если их нет
+
+        // Присваиваем СВОЙСТВУ Trips (не полю _trips): тогда экран узнает о замене коллекции.
+        Trips = new ObservableCollection<Trip>(db.Trips.ToList());
     }
 
     [RelayCommand] // Кнопка в XAML не может вызвать метод напрямую, ей нужна команда (Command), то есть объект, который знает, как выполнить действие.
