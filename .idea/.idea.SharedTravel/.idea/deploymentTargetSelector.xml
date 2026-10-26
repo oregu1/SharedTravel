@@ -4,7 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="SharedTravel">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-10-19T15:07:12.570019100Z">
+        <DropdownSelection timestamp="2026-10-26T15:25:01.118400200Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\OreguJin\.android\avd\pixel_7_-_api_35.avd" />

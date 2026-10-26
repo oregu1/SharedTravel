@@ -3,4 +3,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <!-- Общие размеры шрифтов -->
     <x:Double x:Key="HeaderSize">28</x:Double>
+    <Style x:Key="CardStyle" TargetType="Border">
+        <Setter Property="StrokeShape" Value="RoundRectangle 10"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"/>
+    </Style>
 </ResourceDictionary>

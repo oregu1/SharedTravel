@@ -16,37 +16,51 @@
             FontSize="{StaticResource HeaderSize}"
             FontAttributes="Bold"
             HorizontalOptions="Center"
+            Padding="0,0,0,10"
         />
         <!--  Список поездок  -->
         <CollectionView
             ItemsSource="{Binding Trips}"
             Grid.Row="1"
         >
+            <!-- Расстояние между карточками -->
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            
             <CollectionView.ItemTemplate>
                 <DataTemplate
                    x:DataType="models:Trip">
-                    <VerticalStackLayout 
-                       Padding="0, 10">
-                        <Label
-                            Text="{Binding Name}"
-                            FontAttributes="Bold"
-                        />
-                        <Label
-                            Text="{Binding StartDate, StringFormat='Начало: {0:dd.MM.yyyy}'}"
-                        />
-                        <Label
-                            Text="{Binding EndDate, StringFormat='Конец: {0:dd.MM.yyyy}'}"
-                        />
-                        <Label
-                            Text="{Binding CountryName, StringFormat='Страна: {0}'}"
-                        />
-                        <Label
-                            Text="{Binding CurrencyCode, StringFormat='Валюта: {0}'}"
-                        />
-                        <Label
-                            Text="{Binding PlannedBudget, StringFormat='Плановый бюджет: {0}'}"
-                        />
-                    </VerticalStackLayout>
+                    <Border Style="{StaticResource CardStyle}">
+                        <VerticalStackLayout 
+                            Padding="0">
+                            <Label
+                                Text="{Binding Name}"
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                Padding="0,0,0,5"
+                            />
+                            <Label>
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}{0:dd.MM.yyyy} - {1:dd.MM.yyyy}">
+                                        <Binding Path="StartDate"></Binding>
+                                        <Binding Path="EndDate"></Binding>
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                            <Label>
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}Страна: {0} - Валюта: {1}">
+                                        <Binding Path="CountryName"></Binding>
+                                        <Binding Path="CurrencyCode"></Binding>
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                            <Label
+                                Text="{Binding PlannedBudget, StringFormat='Плановый бюджет: {0}'}"
+                            />
+                        </VerticalStackLayout>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
             <CollectionView.EmptyView>
