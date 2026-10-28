@@ -8,15 +8,15 @@
 
     <TabBar>
         <ShellContent
-            Title="Главная"
+            Title="Main"
             ContentTemplate="{DataTemplate pages:MainPage}"
             Route="MainPage" />
         <ShellContent
-            Title="Расчеты"
+            Title="Settlements"
             ContentTemplate="{DataTemplate pages:SettlementsPage}"
             Route="SettlementsPage" />
         <ShellContent
-            Title="Профиль"
+            Title="Profile"
             ContentTemplate="{DataTemplate pages:ProfilePage}"
             Route="ProfilePage" />
     </TabBar>

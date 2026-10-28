@@ -12,7 +12,7 @@
         <!--  Заголовок  -->
         <Label
             Grid.Row="0"
-            Text="Мои путешествия"
+            Text="My trips"
             FontSize="{StaticResource HeaderSize}"
             FontAttributes="Bold"
             HorizontalOptions="Center"
@@ -50,14 +50,16 @@
                             </Label>
                             <Label>
                                 <Label.Text>
-                                    <MultiBinding StringFormat="{}Страна: {0} - Валюта: {1}">
+                                    <MultiBinding StringFormat="{}Country: {0} - Currency: {1}">
                                         <Binding Path="CountryName"></Binding>
                                         <Binding Path="CurrencyCode"></Binding>
                                     </MultiBinding>
                                 </Label.Text>
                             </Label>
+                            <Label Text="{Binding CitiesNames, StringFormat='Cities: {0}'}"/>
+                            <Label Text="{Binding ParticipantsNames, StringFormat='Participants: {0}'}"/>
                             <Label
-                                Text="{Binding PlannedBudget, StringFormat='Плановый бюджет: {0}'}"
+                                Text="{Binding PlannedBudget, StringFormat='Planned budget: {0}'}"
                             />
                         </VerticalStackLayout>
                     </Border>
@@ -65,7 +67,7 @@
             </CollectionView.ItemTemplate>
             <CollectionView.EmptyView>
                 <Label 
-                   Text="Вы еще никуда не ездили..." 
+                   Text="No trips yet..." 
                     HorizontalOptions="Center"
                 />
             </CollectionView.EmptyView>
@@ -73,7 +75,7 @@
         <!--  Кнопка  -->
         <Button
             Grid.Row="2"
-            Text="Добавить поездку"
+            Text="Add new trip"
             BackgroundColor="LightBlue"
             Command="{Binding GoToAddTripPageCommand}"
         />

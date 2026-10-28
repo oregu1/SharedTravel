@@ -15,6 +15,10 @@ public class Trip
     // Только для показа на экране: название страны считается из CountryCode, в базе не хранится.
     [NotMapped]
     public string CountryName => CountryCode.GetDescription();
+    [NotMapped]
+    public string CitiesNames => string.Join(", ", Cities.Select(c => c.Name));
+    [NotMapped]
+    public string ParticipantsNames => string.Join(", ", Participants.Select(c => c.Name));
     public CurrencyCode CurrencyCode { get; set; } = CurrencyCode.USD;
     public decimal PlannedBudget { get; set; }
 

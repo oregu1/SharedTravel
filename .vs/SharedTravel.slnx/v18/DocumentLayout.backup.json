@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\OreguJin\\Desktop\\.NET\\SharedTravel\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{862236CD-5AF6-AF7B-4D14-5F98489E4858}|SharedTravel\\SharedTravel.csproj|c:\\users\\oregujin\\desktop\\.net\\sharedtravel\\sharedtravel\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{862236CD-5AF6-AF7B-4D14-5F98489E4858}|SharedTravel\\SharedTravel.csproj|solutionrelative:sharedtravel\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{862236CD-5AF6-AF7B-4D14-5F98489E4858}|SharedTravel\\SharedTravel.csproj|c:\\users\\oregujin\\desktop\\.net\\sharedtravel\\sharedtravel\\pages\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{862236CD-5AF6-AF7B-4D14-5F98489E4858}|SharedTravel\\SharedTravel.csproj|solutionrelative:sharedtravel\\pages\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +18,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 248,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\OreguJin\\Desktop\\.NET\\SharedTravel\\SharedTravel\\Pages\\MainPage.xaml.cs",
+              "RelativeDocumentMoniker": "SharedTravel\\Pages\\MainPage.xaml.cs",
+              "ToolTip": "C:\\Users\\OreguJin\\Desktop\\.NET\\SharedTravel\\SharedTravel\\Pages\\MainPage.xaml.cs",
+              "RelativeToolTip": "SharedTravel\\Pages\\MainPage.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-17T14:12:32.6Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\OreguJin\\Desktop\\.NET\\SharedTravel\\SharedTravel\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "SharedTravel\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\OreguJin\\Desktop\\.NET\\SharedTravel\\SharedTravel\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "SharedTravel\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-17T14:10:45.305Z",
+              "EditorCaption": ""
             }
           ]
         }

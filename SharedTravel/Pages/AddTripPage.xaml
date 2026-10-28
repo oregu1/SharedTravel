@@ -8,32 +8,74 @@
     <ContentPage.Content>
         <ScrollView>
             <VerticalStackLayout Padding="16" Spacing="12">
-                <Label Text="Название поездки"/>
-                <Entry Text="{Binding TripTitle}" Placeholder="Введите название поездки"/>
                 
-                <Label Text="Дата поездки с/по"/>
+                <!-- TRIP NAME -->
+                <Label Text="Trip title"/>
+                <Entry Text="{Binding TripTitle}" Placeholder="Enter trip title"/>
+                
+                <!-- TRIP DATES -->
+                <Label Text="Trip dates from/to"/>
                 <DatePicker Date="{Binding TripStartDate}" />
                 <DatePicker Date="{Binding TripEndDate}" />
                 
+                <!-- COUNTRY -->
                 <Picker
-                    Title="Страна поездки"
+                    Title="Country"
                     ItemsSource="{Binding Countries}"
                     ItemDisplayBinding="{Binding Name, x:DataType=models:CountryOption}"
                     SelectedItem="{Binding SelectedCountry}"
                 />
                 
+                <!-- CURRENCY -->
                 <Picker
-                    Title="Валюта расчетов в поездке"
+                    Title="Currency"
                     ItemsSource="{Binding Currencies}"
                     SelectedItem="{Binding SelectedCurrency}"
                 />
                 
-                <Label Text="Плановая сумма бюджета"/>
-                <Entry Text="{Binding TripPlannedBudget}" Placeholder="Какую сумму хотите взять для поездки?" Keyboard="Numeric"/>
+                <!-- PLANNED BUDGET -->
+                <Label Text="Planned budget"/>
+                <Entry Text="{Binding TripPlannedBudget}" Placeholder="Planned budget amount" Keyboard="Numeric"/>
+                
+                <!-- CITIES -->
+                <Label Text="Cities"/>
+                <Entry Text="{Binding NewCityName}" Placeholder="Введите название города"/>
                 <Button
-                    Text="Сохранить"
+                    Text="Add city"
+                    Command="{Binding AddCityCommand}"
+                />
+                
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Cities}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate
+                            x:DataType="models:City">
+                            <Label Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+                
+                <!-- PARTICIPANTS -->
+                <Label Text="Participants"/>
+                <Entry Text="{Binding NewParticipant}" Placeholder="Participant name"/>
+                <Button
+                    Text="Add participant"
+                    Command="{Binding AddParticipantCommand}"
+                />
+                
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Participants}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate
+                            x:DataType="models:Participant">
+                            <Label Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+                
+                <!-- ADD TRIP BUTTON -->
+                <Button
+                    Text="Add trip"
                     Command="{Binding SaveNewTripToDbCommand}"
-                    />
+                />
             </VerticalStackLayout>
         </ScrollView>
     </ContentPage.Content>
