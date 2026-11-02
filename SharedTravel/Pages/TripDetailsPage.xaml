@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SharedTravel.Pages.TripDetailsPage"
+             xmlns:viewModels="clr-namespace:SharedTravel.ViewModels"
+             xmlns:models="clr-namespace:SharedTravel.Models">
+    <ContentPage.Content>
+        <!-- ScrollView используем для небольшого блока участников. Для БОЛЬШОГО списка будем применять CollectionView с собственной прокруткой -->
+        <ScrollView Orientation="Vertical">
+            <!-- x:DataType="" сообщает XAML тип элемента внутри шаблона. Здесь обращаемся к viewModel TripDetailsViewModel-->
+            <VerticalStackLayout
+                x:DataType="viewModels:TripDetailsViewModel"
+                Padding="16"
+                Spacing="12">
+                
+                <!-- Trip Name -->
+                <Label
+                    Text="{Binding Trip.Name}"
+                    FontSize="24"
+                    FontAttributes="Bold" />
+                
+                <!-- Trip Dates -->
+                <Label FontSize="16">
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0:dd.MM.yyyy} — {1:dd.MM.yyyy}">
+                            <Binding Path="Trip.StartDate" />
+                            <Binding Path="Trip.EndDate" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+                
+                <!-- Country -->
+                <Label
+                    Text="{Binding Trip.CountryName, StringFormat='Country: {0}'}"
+                    FontSize="16"
+                />
+                
+                <!-- Cities -->
+                <Label
+                    Text="{Binding Trip.CitiesNames, StringFormat='Cities: {0}'}"
+                    FontSize="16"
+                />
+                
+                <!-- Participants -->
+                <Label
+                    Text="Participants"
+                    FontSize="18"
+                    FontAttributes="Bold" />
+                
+                <VerticalStackLayout 
+                    Spacing="6" 
+                    BindableLayout.ItemsSource="{Binding Trip.Participants}">
+                    <!-- BindableLayout используем вместо CollectionView когда нужно ПРОСТО отобразить данные. Никаких прокруток, выбора и прочих фич в нем нет -->
+                    <BindableLayout.ItemTemplate>
+                        <!-- DataTemplate - шаблон строится на основе модели/класса Participant и его полей -->
+                        <DataTemplate x:DataType="models:Participant">
+                            <Label
+                                Text="{Binding Name}"
+                                FontSize="16" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+                
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

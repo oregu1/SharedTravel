@@ -22,6 +22,9 @@
         <CollectionView
             ItemsSource="{Binding Trips}"
             Grid.Row="1"
+            SelectionMode="Single"
+            SelectionChangedCommand="{Binding OpenTripDetailsCommand}"
+            SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}, x:DataType=CollectionView}"
         >
             <!-- Расстояние между карточками -->
             <CollectionView.ItemsLayout>

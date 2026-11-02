@@ -8,8 +8,9 @@ namespace SharedTravel
         {
             InitializeComponent();
             
-            //  МАРШРУТЫ
+            //  ROUTES
             Routing.RegisterRoute("AddTripPage", typeof(AddTripPage));
+            Routing.RegisterRoute("TripDetailsPage", typeof(TripDetailsPage));
         }
     }
 }

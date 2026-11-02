@@ -29,9 +29,20 @@ public partial class MainViewModel : ObservableObject
         // Trips = new ObservableCollection<Trip>(db.Trips.ToList());
     }
 
-    [RelayCommand] // Кнопка в XAML не может вызвать метод напрямую, ей нужна команда (Command), то есть объект, который знает, как выполнить действие.
-    private async Task GoToAddTripPage()
-    {
-        await Shell.Current.GoToAsync("AddTripPage");
-    }
+    #region COMMANDS
+        [RelayCommand] // Кнопка в XAML не может вызвать метод напрямую, ей нужна команда (Command), то есть объект, который знает, как выполнить действие.
+        private async Task GoToAddTripPage()
+        {
+            await Shell.Current.GoToAsync("AddTripPage");
+        }
+
+        [RelayCommand]
+        private async Task OpenTripDetails(Trip? trip)
+        {
+            if (trip == null) return;
+
+            await Shell.Current.GoToAsync("TripDetailsPage",
+                new Dictionary<string, object> {{"Trip", trip}});// 2-м параметром передаем наш Trip
+        }
+    #endregion
 }

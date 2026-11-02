@@ -12,7 +12,7 @@ public class Trip
     public DateTime EndDate { get; set; }
     public CountryCode CountryCode { get; set; } = CountryCode.US;
 
-    // Только для показа на экране: название страны считается из CountryCode, в базе не хранится.
+    // Только для показа на экране: название страны считается из CountryCode, поля помеченные аттрибутом [NotMapped] в базе не хранится, только на клиенте.
     [NotMapped]
     public string CountryName => CountryCode.GetDescription();
     [NotMapped]
