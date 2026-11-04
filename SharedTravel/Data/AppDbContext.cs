@@ -19,7 +19,24 @@ namespace SharedTravel.Data
         {
             //  Используй базу sharedtravel.db3 по пути path
             var path = Path.Combine(FileSystem.AppDataDirectory, "sharedtravel.db3");
-            options.UseSqlite($"Filename={path}");
+            options.UseSqlite($"Filename={path}")
+                //  UseSeeding нужен для первоначального заполнения данными
+                .UseSeeding((context, _) =>
+                {
+                    // Добавляем категории расходов, если их нет в базе SQLite. Это нужно, чтобы при первом запуске приложения пользователь видел категории, а не пустой список.
+                    var categories = context.Set<Category>();
+
+                    foreach (var type in Enum.GetValues<CategoryType>())
+                    {
+                        if(type == CategoryType.Custom) continue; // не добавляем категорию Custom, её создаёт пользователь
+                        
+                        // Добавляем категорию, если её ещё нет в базе данных
+                        if (!categories.Any(c => c.Type == type))
+                            categories.Add(new Category { Type = type });
+                    }
+                    
+                    context.SaveChanges();
+                });
         }
     }
 }

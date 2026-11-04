@@ -1,4 +1,6 @@
-﻿namespace SharedTravel.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SharedTravel.Models;
 
 public class Expense
 {
@@ -15,6 +17,7 @@ public class Expense
     public Category? Category { get; set; }
 
     public Guid PaidByParticipantId { get; set; }   // кто платил
+    [ForeignKey(nameof(PaidByParticipantId))] // Для связи PaidBy используй внешний ключ PaidByParticipantId. nameof(PaidByParticipantId) возвращает строку "PaidByParticipantId"
     public Participant? PaidBy { get; set; }
 
     public List<ExpenseShare> Shares { get; set; } = new();
