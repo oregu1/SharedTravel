@@ -9,8 +9,9 @@ namespace SharedTravel
             InitializeComponent();
             
             //  ROUTES
-            Routing.RegisterRoute("AddTripPage", typeof(AddTripPage));
-            Routing.RegisterRoute("TripDetailsPage", typeof(TripDetailsPage));
+            Routing.RegisterRoute(nameof(AddTripPage), typeof(AddTripPage));
+            Routing.RegisterRoute(nameof(TripDetailsPage), typeof(TripDetailsPage));
+            Routing.RegisterRoute(nameof(AddExpensePage), typeof(AddExpensePage));
         }
     }
 }

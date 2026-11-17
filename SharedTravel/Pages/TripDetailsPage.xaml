@@ -61,6 +61,10 @@
                     </BindableLayout.ItemTemplate>
                 </VerticalStackLayout>
                 
+                <!-- ADD EXPENSE -->
+                <Button
+                    Text="Add expense"
+                    Command="{Binding OpenAddExpenseCommand}" />
             </VerticalStackLayout>
         </ScrollView>
     </ContentPage.Content>
