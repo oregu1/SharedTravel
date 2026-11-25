@@ -1,48 +1,43 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using SharedTravel.Models;
+﻿using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using Microsoft.EntityFrameworkCore;
 using SharedTravel.Data;
+using SharedTravel.Models;
+using SharedTravel.Pages;
 
 namespace SharedTravel.ViewModels;
 
-public partial class MainViewModel : ObservableObject
+public partial class MainViewModel
 {
-    // Из этого поля генератор создаёт публичное свойство Trips (с большой буквы, без подчёркивания).
-    // Именно свойство Trips используется в XAML и в коде ниже.
-    [ObservableProperty]
-    private ObservableCollection<Trip> _trips = new();
+    public ObservableCollection<Trip> Trips { get; set; } = new ObservableCollection<Trip>();
 
-    public void LoadTripsFromDb()
+    public async Task LoadTripsFromDbAsync()
     {
-        using var db = new AppDbContext();
-        db.Database.EnsureCreated(); // создать файл и таблицы, если их нет
+        var trips = await Task.Run(() =>
+        {
+            using var dbContext = new AppDbContext(); // using освобождает контекст после чтения.
+            dbContext.Database.EnsureCreated();
 
-        // Присваиваем СВОЙСТВУ Trips (не полю _trips): тогда экран узнает о замене коллекции.
-        var trips = db.Trips
-            .Include(trip => trip.Cities)
-            .Include(trip => trip.Participants)
-            .ToList();
-
-        Trips = new ObservableCollection<Trip>(trips); // Include (из Microsoft.EntityFrameworkCore) говорит «вместе с поездками загрузи и их города». Без него вы увидите пустой список и подумаете, что города не сохранились.
-        // Trips = new ObservableCollection<Trip>(db.Trips.ToList());
+            return dbContext.Trips
+                .AsNoTracking()
+                .Include(trip => trip.Cities)
+                .Include(trip => trip.Participants)
+                .Include(trip => trip.Expenses)
+                .Include(trip => trip.Settlements)
+                .ToList();
+        });
+        
+        Trips.Clear();
+        
+        foreach (var trip in trips)
+        {
+            Trips.Add(trip);
+        }
     }
 
-    #region COMMANDS
-        [RelayCommand] // Кнопка в XAML не может вызвать метод напрямую, ей нужна команда (Command), то есть объект, который знает, как выполнить действие.
-        private async Task GoToAddTripPage()
-        {
-            await Shell.Current.GoToAsync("AddTripPage");
-        }
-
-        [RelayCommand]
-        private async Task OpenTripDetails(Trip? trip)
-        {
-            if (trip == null) return;
-
-            await Shell.Current.GoToAsync("TripDetailsPage",
-                new Dictionary<string, object> {{"Trip", trip}});// 2-м параметром передаем наш Trip
-        }
-    #endregion
+    [RelayCommand]
+    private async Task GoToAddTripPage()
+    {
+        await Shell.Current.GoToAsync(nameof(AddTripPage));
+    }
 }

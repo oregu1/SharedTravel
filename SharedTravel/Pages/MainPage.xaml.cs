@@ -14,10 +14,24 @@ namespace SharedTravel.Pages
             BindingContext = _viewModel;
         }
 
-        protected override void OnAppearing()// Каждрый раз как возвращаемся на главную страницу, делаем запрос к базе для обновления данных
+        protected override async void OnAppearing()// Каждрый раз как возвращаемся на главную страницу, делаем запрос к базе для обновления данных
         {
             base.OnAppearing();
-            _viewModel.LoadTripsFromDb();
+            
+            TripsList.IsVisible = false;
+
+            try
+            {
+                await _viewModel.LoadTripsFromDbAsync();
+                TripsList.IsVisible = true;
+            }
+            catch (Exception)
+            {
+                await DisplayAlertAsync(
+                    "Error",
+                    "Failed to load trips from DB.",
+                    "OK");
+            }
         }
     }
 }

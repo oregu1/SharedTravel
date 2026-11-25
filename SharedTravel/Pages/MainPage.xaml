@@ -1,14 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:SharedTravel.ViewModels"
-             xmlns:models="clr-namespace:SharedTravel.Models"
-             x:Class="SharedTravel.Pages.MainPage"
-             x:DataType="viewModels:MainViewModel">
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:SharedTravel.ViewModels"
+    xmlns:models="clr-namespace:SharedTravel.Models"
+    x:Class="SharedTravel.Pages.MainPage"
+    x:DataType="viewModels:MainViewModel"
+    Shell.NavBarIsVisible="False">
+    
     <Grid
-        RowDefinitions="Auto, *, Auto"
-        Padding="10"
-    >
+        Padding="16"
+        RowDefinitions="Auto,*,Auto"
+        RowSpacing="16">
+        
         <!--  Заголовок  -->
         <Label
             Grid.Row="0"
@@ -20,58 +24,146 @@
         />
         <!--  Список поездок  -->
         <CollectionView
-            ItemsSource="{Binding Trips}"
+            x:Name="TripsList"
             Grid.Row="1"
-            SelectionMode="Single"
-            SelectionChangedCommand="{Binding OpenTripDetailsCommand}"
-            SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}, x:DataType=CollectionView}"
-        >
+            IsVisible="False"
+            ItemsSource="{Binding Trips}">
+            
             <!-- Расстояние между карточками -->
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
             </CollectionView.ItemsLayout>
             
+            <!-- Шаблон карточки путешествия -->
             <CollectionView.ItemTemplate>
-                <DataTemplate
-                   x:DataType="models:Trip">
-                    <Border Style="{StaticResource CardStyle}">
-                        <VerticalStackLayout 
-                            Padding="0">
-                            <Label
-                                Text="{Binding Name}"
-                                FontAttributes="Bold"
-                                FontSize="18"
-                                Padding="0,0,0,5"
-                            />
-                            <Label>
-                                <Label.Text>
-                                    <MultiBinding StringFormat="{}{0:dd.MM.yyyy} - {1:dd.MM.yyyy}">
-                                        <Binding Path="StartDate"></Binding>
-                                        <Binding Path="EndDate"></Binding>
-                                    </MultiBinding>
-                                </Label.Text>
-                            </Label>
-                            <Label>
-                                <Label.Text>
-                                    <MultiBinding StringFormat="{}Country: {0} - Currency: {1}">
-                                        <Binding Path="CountryName"></Binding>
-                                        <Binding Path="CurrencyCode"></Binding>
-                                    </MultiBinding>
-                                </Label.Text>
-                            </Label>
-                            <Label Text="{Binding CitiesNames, StringFormat='Cities: {0}'}"/>
-                            <Label Text="{Binding ParticipantsNames, StringFormat='Participants: {0}'}"/>
-                            <Label
-                                Text="{Binding PlannedBudget, StringFormat='Planned budget: {0}'}"
-                            />
-                        </VerticalStackLayout>
+                <DataTemplate x:DataType="models:Trip">
+                    <Border 
+                        HeightRequest="210"
+                        Padding="0"
+                        StrokeThickness="0"
+                        BackgroundColor="#203947">
+                        <!-- Закгруленный элемент -->
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="22"/>
+                        </Border.StrokeShape>
+                        <Grid>
+                            <!-- BACKGROUND IMAGE -->
+                            <Image
+                                Source="https://media.istockphoto.com/id/1971796553/photo/young-couple-is-standing-at-mountain-top-with-great-view.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=SRfYHbtg53JPuRiM9LP5bD5_BKB-V4z4ttLbZoaygjc="
+                                Aspect="AspectFill"
+                                />
+                            <Grid
+                                Padding="16"
+                                RowDefinitions="Auto,*,Auto"
+                                ColumnDefinitions="*"
+                                RowSpacing="8"
+                                >
+                                <!-- 1st ROW COUNTRY NAME & PARTICIPANTS COUNT -->
+                                <Grid
+                                    Grid.Row="0"
+                                    ColumnDefinitions="*,Auto"
+                                    ColumnSpacing="12">
+                                    <Label
+                                        Grid.Column="0"
+                                        Text="{Binding CountryName}"
+                                        TextColor="White"
+                                        FontSize="18"
+                                        FontAttributes="Bold"
+                                        VerticalOptions="Center"
+                                        MaxLines="1"
+                                        LineBreakMode="TailTruncation"/>
+                                    
+                                    <HorizontalStackLayout
+                                        Grid.Column="1"
+                                        Spacing="5"
+                                        VerticalOptions="Center">
+
+                                        <Label
+                                            Text="👤"
+                                            FontSize="16"
+                                            VerticalOptions="Center" />
+
+                                        <Label
+                                            Text="{Binding Participants.Count}"
+                                            TextColor="White"
+                                            FontSize="14"
+                                            VerticalOptions="Center" />
+
+                                    </HorizontalStackLayout>
+                                </Grid>
+                                
+                                <!-- 3rd ROW FADE & PLANNED BUDGET/TRIP DATES -->
+                                <Grid
+                                    Grid.Row="2"
+                                    VerticalOptions="End">
+                                    <BoxView InputTransparent="True">
+                                        <BoxView.Background>
+                                            <LinearGradientBrush
+                                                StartPoint="0,0"
+                                                EndPoint="0,1">
+                                                <GradientStop
+                                                    Color="#55000000"
+                                                    Offset="0" />
+                                                <GradientStop
+                                                    Color="#10000000"
+                                                    Offset="0.4" />
+                                                <GradientStop
+                                                    Color="#DD000000"
+                                                    Offset="1" />
+                                            </LinearGradientBrush>
+                                        </BoxView.Background>
+                                    </BoxView>
+                                    
+                                    <Grid
+                                        ColumnDefinitions="*,Auto"
+                                        ColumnSpacing="12">
+                                        <!-- DATES -->
+                                        <Label
+                                            Grid.Column="0"
+                                            TextColor="White"
+                                            FontSize="12"
+                                            VerticalOptions="End">
+                                            <Label.Text>
+                                                <MultiBinding
+                                                    StringFormat="{}{0:dd.MM}–{1:dd.MM}">
+                                                    <Binding Path="StartDate" />
+                                                    <Binding Path="EndDate" />
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                        <!-- PLANNED BUDGET -->
+                                        <VerticalStackLayout
+                                            Grid.Column="1"
+                                            Spacing="1"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="End">
+
+                                            <Label
+                                                Text="{Binding TotalExpenses,
+                                    StringFormat='{0:N2}'}"
+                                                TextColor="White"
+                                                FontSize="17"
+                                                FontAttributes="Bold"
+                                                HorizontalTextAlignment="End" />
+
+                                            <Label
+                                                Text="{Binding CurrencyCode}"
+                                                TextColor="#DDFFFFFF"
+                                                FontSize="11"
+                                                HorizontalTextAlignment="End" />
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
             <CollectionView.EmptyView>
                 <Label 
-                   Text="No trips yet..." 
+                    Text="No trips yet..." 
                     HorizontalOptions="Center"
+                    VerticalOptions="Center"
                 />
             </CollectionView.EmptyView>
         </CollectionView>
